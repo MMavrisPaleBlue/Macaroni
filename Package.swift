@@ -13,27 +13,29 @@ import PackageDescription
 
 let package = Package(
     name: "Macaroni",
-    platforms: [ .iOS(.v11), .macOS(.v10_14) ],
+    platforms: [
+        .iOS(.v11),
+        .macOS(.v10_14)
+    ],
     products: [
         .library(
-            name: "Macaroni", 
-            targets: [ "Macaroni" ],
-            // Add this line to enable library evolution
-            type: .dynamic
+            name: "Macaroni",
+            targets: ["Macaroni"]
         ),
     ],
     targets: [
         .target(
-            name: "Macaroni", 
-            dependencies: [], 
+            name: "Macaroni",
+            dependencies: [],
             path: "Sources",
-            // Add these Swift settings to enable library evolution
             swiftSettings: [
-                .define("SWIFT_ENABLE_LIBRARY_EVOLUTION"),
-                .unsafeFlags(["-enable-library-evolution"])
+                .unsafeFlags(["-enable-library-evolution"], .when(configuration: .release))
             ]
         ),
-        .testTarget(name: "MacaroniTests", dependencies: ["Macaroni"]),
+        .testTarget(
+            name: "MacaroniTests",
+            dependencies: ["Macaroni"]
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )
